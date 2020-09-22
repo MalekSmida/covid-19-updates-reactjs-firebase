@@ -1,7 +1,14 @@
 import React, { useState, useEffect } from "react";
 import "./App.scss";
-import { FormControl, Select, MenuItem } from "@material-ui/core";
+import {
+  FormControl,
+  Select,
+  MenuItem,
+  Card,
+  CardContent,
+} from "@material-ui/core";
 import InfoBox from "./components/InfoBox";
+import Map from "./components/Map";
 
 function App() {
   const [countries, setCountries] = useState([]);
@@ -29,32 +36,43 @@ function App() {
   };
   return (
     <div className="app">
-      <div className="app__header">
-        <h1>Covid 19 Update</h1>
-        <FormControl className="app__header__dropdown">
-          <Select variant="outlined" onChange={onCountryChange} value={country}>
-            <MenuItem key={0} value="worldwide">
-              Worldwide
-            </MenuItem>
-            {countries.map((country, index) => (
-              <MenuItem key={index + 1} value={country.value}>
-                {country.name}
+      <div className="app__left">
+        <div className="app__left__header">
+          <h1>Covid 19 Update</h1>
+          <FormControl className="app__left__header__dropdown">
+            <Select
+              variant="outlined"
+              onChange={onCountryChange}
+              value={country}
+            >
+              <MenuItem key={0} value="worldwide">
+                Worldwide
               </MenuItem>
-            ))}
-          </Select>
-        </FormControl>
+              {countries.map((country, index) => (
+                <MenuItem key={index + 1} value={country.value}>
+                  {country.name}
+                </MenuItem>
+              ))}
+            </Select>
+          </FormControl>
+        </div>
+
+        <div className="app__left__stats">
+          <InfoBox title="Coronavirus cases" cases="100M" total="84B" />
+          <InfoBox title="Recoverd" cases="100M" total="84B" />
+          <InfoBox title="Deaths" cases="100M" total="84B" />
+        </div>
+
+        <Map />
       </div>
-
-      <div className="app__stats">
-        <InfoBox title="Coronavirus cases" cases="100M" total="84B" />
-        <InfoBox title="Recoverd" cases="100M" total="84B" />
-        <InfoBox title="Deaths" cases="100M" total="84B" />
-      </div>
-
-      {/* <Table/> */}
-      {/* <Graph/> */}
-
-      {/* <Map/> */}
+      <Card className="app__right">
+        <CardContent>
+          <h3>Live Cases by Country</h3>
+          {/* <Table/> */}
+          <h3>Worldwide new Cases</h3>
+          {/* <Graph/> */}
+        </CardContent>
+      </Card>
     </div>
   );
 }

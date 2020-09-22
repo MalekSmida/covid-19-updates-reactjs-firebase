@@ -6,16 +6,39 @@ body {
   background-color: #f6f5fa; //whole background
 }
 
-.app {
-  &__header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin: 0 0 20px 0;
+html {
+  @media (max-width: 990px) {
+    .app {
+      flex-direction: column;
+    }
   }
 
-  &__stats {
-    display: flex;
-    justify-content: space-between;
+  @media (max-width: 480px) {
+    .app__left__stats {
+      flex-direction: column;
+    }
+  }
+}
+
+.app {
+  display: flex;
+  justify-content: space-evenly;
+  padding: 20px;
+
+  &__left {
+    &__header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin: 0 0 20px 0;
+    }
+
+    &__stats {
+      display: flex;
+      justify-content: space-between;
+    }
+  }
+
+  &__right {
   }
 }
