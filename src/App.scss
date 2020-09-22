@@ -1,11 +1,21 @@
 * {
   margin: 0;
 }
+
+body {
+  background-color: #f6f5fa; //whole background
+}
+
 .app {
   &__header {
     display: flex;
     justify-content: space-between;
     align-items: center;
     margin: 0 0 20px 0;
+  }
+
+  &__stats {
+    display: flex;
+    justify-content: space-between;
   }
 }
