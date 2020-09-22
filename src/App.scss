@@ -26,6 +26,7 @@ html {
   padding: 20px;
 
   &__left {
+    flex: 0.9;
     &__header {
       display: flex;
       justify-content: space-between;
