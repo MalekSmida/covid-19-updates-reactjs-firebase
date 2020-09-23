@@ -72,7 +72,6 @@ function Graph() {
         .then((data) => {
           const chartData = buildChartData(data, "cases");
           setData(chartData);
-          console.log(chartData);
         });
     };
     fetchData();
