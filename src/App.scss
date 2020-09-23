@@ -32,6 +32,11 @@ html {
       justify-content: space-between;
       align-items: center;
       margin: 0 0 20px 0;
+      color: #cc1034;
+
+      &__dropdown {
+        background-color: white;
+      }
     }
 
     &__stats {
@@ -41,5 +46,17 @@ html {
   }
 
   &__right {
+    display: flex;
+    flex-direction: column;
+
+    .MuiCardContent-root {
+      display: flex;
+      flex-direction: column;
+      flex-grow: 1;
+    }
+
+    &__title {
+      margin: 5% 0;
+    }
   }
 }

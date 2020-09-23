@@ -1,7 +1,7 @@
 .table {
   margin: 20px 0 0 0;
   overflow: scroll;
-  max-height: 390px;
+  max-height: 320px;
   color: gray;
   background-color: white;
 
@@ -16,5 +16,6 @@
 
   td {
     padding: 0.5rem;
+    font-size: 14px;
   }
 }

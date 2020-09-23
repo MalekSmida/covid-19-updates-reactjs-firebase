@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Line } from "react-chartjs-2";
 import numeral from "numeral";
+import "./index.scss";
 
 const options = {
   legend: {
@@ -62,7 +63,7 @@ const buildChartData = (data, casesType) => {
   return chartData;
 };
 
-function Graph() {
+function Graph({ casesType, ...props }) {
   const [data, setData] = useState({});
 
   useEffect(() => {
@@ -70,12 +71,12 @@ function Graph() {
       await fetch("https://disease.sh/v3/covid-19/historical/all?lastdays=120")
         .then((response) => response.json())
         .then((data) => {
-          const chartData = buildChartData(data, "cases");
+          const chartData = buildChartData(data, casesType);
           setData(chartData);
         });
     };
     fetchData();
-  }, []);
+  }, [casesType]);
 
   return (
     <div className="graph">

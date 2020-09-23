@@ -1,5 +1,6 @@
 import React from "react";
 import "./index.scss";
+import numeral from "numeral";
 
 function Table({ countries }) {
   return (
@@ -8,7 +9,7 @@ function Table({ countries }) {
         <tr key={country}>
           <td>{country}</td>
           <td>
-            <strong>{cases}</strong>
+            <strong>{numeral(cases).format()}</strong>
           </td>
         </tr>
       ))}
