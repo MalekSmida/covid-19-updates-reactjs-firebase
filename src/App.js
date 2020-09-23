@@ -10,13 +10,20 @@ import {
 import InfoBox from "./components/InfoBox";
 import Map from "./components/Map";
 import Table from "./components/Table";
+import Graph from "./components/Graph";
 import { sortData } from "./utilities";
+import "leaflet/dist/leaflet.css";
 
 function App() {
   const [countries, setCountries] = useState([]);
   const [country, setCountry] = useState("worldwide");
   const [countryInfo, setCountryInfo] = useState({});
   const [tableData, setTableData] = useState([]);
+  const [mapCenter, setMapCenter] = useState({
+    lat: 34.80746,
+    lng: -40.4796,
+  });
+  const [mapZoom, setMapZoom] = useState(3);
 
   useEffect(() => {
     fetch("https://disease.sh/v3/covid-19/all")
@@ -57,13 +64,15 @@ function App() {
       .then((data) => {
         setCountry(countryCode);
         setCountryInfo(data);
+        setMapCenter({ lat: data.countryInfo.lat, lng: data.countryInfo.lng });
+        setMapZoom(4);
       });
   };
   return (
     <div className="app">
       <div className="app__left">
         <div className="app__left__header">
-          <h1>Covid 19 Update</h1>
+          <h1>Covid 19 Updates</h1>
           <FormControl className="app__left__header__dropdown">
             <Select
               variant="outlined"
@@ -100,14 +109,14 @@ function App() {
           />
         </div>
 
-        <Map />
+        <Map center={mapCenter} zoom={mapZoom} />
       </div>
       <Card className="app__right">
         <CardContent>
           <h3>Live Cases by Country</h3>
           <Table countries={tableData} />
           <h3>Worldwide new Cases</h3>
-          {/* <Graph/> */}
+          <Graph />
         </CardContent>
       </Card>
     </div>
