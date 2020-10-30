@@ -3,49 +3,68 @@
 }
 
 body {
-  background-color: #f6f5fa; //whole background
-}
-
-html {
-  @media (max-width: 990px) {
-    .app {
-      flex-direction: column;
-    }
-  }
-
-  /* @media (max-width: 480px) {
-    .app__left__stats {
-      flex-direction: column;
-    }
-  } */
+  background-image: url("https://cdn.pixabay.com/photo/2020/02/10/04/56/virus-4835301_960_720.jpg");
+  background-size: cover;
 }
 
 .app {
   display: flex;
   justify-content: space-evenly;
-  padding: 20px;
+
+  @media (max-width: 990px) {
+    flex-direction: column;
+    padding: 0 2.4vh;
+  }
 
   &__left {
-    flex: 0.9;
+    flex: 0.6;
+    height: 100vh;
+
     &__header {
+      height: 10vh;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin: 0 0 20px 0;
-      color: #cc1034;
+      margin: 2vh 0 2vh 0;
+      padding: 0 1vh 0 2vh;
+      border-radius: 1vh;
+      color: #212121;
+      background-color: white;
+
+      h1 {
+        font-size: 4vh;
+      }
 
       &__dropdown {
         background-color: white;
+        border-radius: 1vh;
       }
     }
 
     &__stats {
       display: flex;
       justify-content: space-between;
+      height: 17vh;
+    }
+
+    .MuiInputBase-input {
+      font-size: 2vh;
+    }
+
+    .MuiOutlinedInput-root {
+      border-radius: 1vh;
+      height: 8vh;
+      width: 18vh;
+      font-size: 5vh;
     }
   }
 
   &__right {
+    flex: 0.3;
+    margin: 2vh 0;
+    height: 93vh;
+    padding: 1vh;
+
     display: flex;
     flex-direction: column;
 
@@ -55,8 +74,12 @@ html {
       flex-grow: 1;
     }
 
+    h3 {
+      font-size: 2.7vh;
+    }
+
     &__title {
-      margin: 5% 0;
+      margin: 3vh 0;
     }
   }
 }
