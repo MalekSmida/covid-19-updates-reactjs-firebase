@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
-import "./App.scss";
+
+// node modules
 import {
   FormControl,
   Select,
@@ -7,11 +8,11 @@ import {
   Card,
   CardContent,
 } from "@material-ui/core";
-import InfoBox from "./components/InfoBox";
-import Map from "./components/Map";
-import Table from "./components/Table";
-import Graph from "./components/Graph";
+
+// local files
+import { Graph, InfoBox, Map, Table } from "./components";
 import { sortData, prettyPrintStat } from "./utilities";
+import "./App.scss";
 import "leaflet/dist/leaflet.css";
 
 function App() {
@@ -27,6 +28,7 @@ function App() {
   const [mapCountries, setMapCountries] = useState([]);
   const [casesType, setCasesType] = useState("cases");
 
+  // fetch covid-19 data from disease
   useEffect(() => {
     fetch("https://disease.sh/v3/covid-19/all")
       .then((response) => response.json())
@@ -54,6 +56,7 @@ function App() {
     getCountriesData();
   }, []);
 
+  // handle changing country
   const onCountryChange = async (event) => {
     const countryCode = event.target.value;
 

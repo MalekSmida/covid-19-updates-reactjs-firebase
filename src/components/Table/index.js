@@ -1,7 +1,16 @@
 import React from "react";
-import "./index.scss";
+
+// Node modules
 import numeral from "numeral";
 
+// Local files
+import "./index.scss";
+
+/**
+ * Table that displays live cases by country
+ *
+ * @param {Object} countries => contains countries covid-19 statistics
+ */
 function Table({ countries }) {
   return (
     <div className="table">

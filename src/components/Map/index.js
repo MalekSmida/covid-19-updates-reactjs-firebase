@@ -1,8 +1,20 @@
 import React from "react";
+
+// Node modules
 import { Map as LeafletMap, TileLayer } from "react-leaflet";
+
+// Local files
 import "./Map.scss";
 import { showDataOnMap } from "../../utilities";
 
+/**
+ * Map that displays countries covid-19 statistics
+ *
+ * @param {Object} countries => contains countries data
+ * @param {String} casesType => could be: cases, recovered or deaths
+ * @param {Object} center => { lat, lng }
+ * @param {Number} zoom => zooming number
+ */
 function Map({ countries, casesType, center, zoom }) {
   return (
     <div className="map">

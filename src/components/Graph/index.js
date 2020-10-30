@@ -1,8 +1,15 @@
 import React, { useState, useEffect } from "react";
+
+// Node modules
 import { Line } from "react-chartjs-2";
 import numeral from "numeral";
+
+// Local files
 import "./index.scss";
 
+/**
+ * Graph configuration
+ */
 const options = {
   legend: {
     display: false,
@@ -47,6 +54,12 @@ const options = {
   },
 };
 
+/**
+ * Filter data based on {casesType}
+ *
+ * @param {Object} data => historical data of covid-19 in the last 120 day
+ * @param {String} casesType => could be: cases, recovered or deaths
+ */
 const buildChartData = (data, casesType) => {
   let chartData = [];
   let lastDataPoint;
@@ -63,9 +76,15 @@ const buildChartData = (data, casesType) => {
   return chartData;
 };
 
+/**
+ * Graph component that displays statistics as chart
+ *
+ * @param {String} casesType => could be: cases, recovered or deaths
+ */
 function Graph({ casesType, ...props }) {
   const [data, setData] = useState({});
 
+  // Fetch historical data of covid-19 in the last 120 day
   useEffect(() => {
     const fetchData = async () => {
       await fetch("https://disease.sh/v3/covid-19/historical/all?lastdays=120")

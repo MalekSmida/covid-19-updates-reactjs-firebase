@@ -1,7 +1,10 @@
 import React from "react";
+
+// Node modules
 import numeral from "numeral";
 import { Circle, Popup } from "react-leaflet";
 
+// cases type colors
 const casesTypeColors = {
   cases: {
     hex: "#CC1034",
@@ -20,14 +23,22 @@ const casesTypeColors = {
   },
 };
 
+// sort data by cases in descending order
 export const sortData = (data) => {
   const sortedData = [...data];
   return sortedData.sort((a, b) => (a.cases > b.cases ? -1 : 1));
 };
 
+// enhance stats format
 export const prettyPrintStat = (stat) =>
   stat ? `+${numeral(stat).format("0.0a")}` : "+0";
 
+/**
+ * Display statistics on each country in the map
+ *
+ * @param {Object} data
+ * @param {String} casesType
+ */
 export const showDataOnMap = (data, casesType = "cases") =>
   data.map((country) => (
     <Circle

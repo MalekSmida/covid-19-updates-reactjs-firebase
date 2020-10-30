@@ -1,7 +1,20 @@
 import React from "react";
+
+// Node modules
 import { Card, CardContent, Typography } from "@material-ui/core";
+
+// Local files
 import "./index.scss";
 
+/**
+ * InfoBox component that displays cases statistics
+ *
+ * @param {boolean} selected
+ * @param {boolean} isRed
+ * @param {String} title
+ * @param {Number} cases
+ * @param {Number} total
+ */
 function InfoBox({ selected, isRed, title, cases, total, ...props }) {
   return (
     <Card
