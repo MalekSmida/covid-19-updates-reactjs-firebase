@@ -1,4 +1,4 @@
-# 24i-project
+# Covid-19 Updates
 
 Web application that displays covid-19 statistics
 
