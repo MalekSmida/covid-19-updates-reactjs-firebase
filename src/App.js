@@ -12,6 +12,11 @@ import {
 // local files
 import { Graph, InfoBox, Map, Table } from "./components";
 import { sortData, prettyPrintStat } from "./utilities";
+import {
+  getCovidAllData,
+  getCountriesData,
+  getCountryData,
+} from "./services/Covid";
 import "./App.scss";
 import "leaflet/dist/leaflet.css";
 
@@ -27,42 +32,49 @@ function App() {
   const [mapZoom, setMapZoom] = useState(3);
   const [mapCountries, setMapCountries] = useState([]);
   const [casesType, setCasesType] = useState("cases");
+  const [error, setError] = useState({});
 
   // fetch covid-19 data from disease
   useEffect(() => {
     let ignore = false;
-    fetch("https://disease.sh/v3/covid-19/all")
-      .then((response) => response.json())
-      .then((data) => {
-        !ignore && setCountryInfo(data);
-      })
-      .catch((err) => console.log(err));
+
+    (async function () {
+      const res = await getCovidAllData();
+      if (ignore) return;
+      if (res.error) {
+        setError(res.error);
+        return;
+      }
+      setCountryInfo(res.response.data);
+    })();
+
     return () => {
       ignore = true;
     };
   }, []);
 
+  // fetch covid-19 countries data from disease
   useEffect(() => {
     let ignore = false;
-    const getCountriesData = async () => {
-      await fetch("https://disease.sh/v3/covid-19/countries")
-        .then((response) => response.json())
-        .then((data) => {
-          if (!ignore) {
-            const countries = data.map((country) => ({
-              name: country.country,
-              value: country.countryInfo.iso2,
-            }));
-            const sortedData = sortData(data);
-            setTableData(sortedData);
-            setCountries(countries);
-            setMapCountries(data);
-          }
-        })
-        .catch((err) => console.log(err));
-    };
 
-    getCountriesData();
+    (async function () {
+      const res = await getCountriesData();
+      if (ignore) return;
+      if (res.error) {
+        setError(res.error);
+        return;
+      }
+      const data = res.response.data;
+      const countries = data.map((country) => ({
+        name: country.country,
+        value: country.countryInfo.iso2,
+      }));
+      const sortedData = sortData(data);
+      setTableData(sortedData);
+      setCountries(countries);
+      setMapCountries(data);
+    })();
+
     return () => {
       ignore = true;
     };
@@ -72,25 +84,26 @@ function App() {
   const onCountryChange = async (event) => {
     const countryCode = event.target.value;
 
-    const url =
-      countryCode === "worldwide"
-        ? "https://disease.sh/v3/covid-19/all"
-        : `https://disease.sh/v3/covid-19/countries/${countryCode}`;
-
-    await fetch(url)
-      .then((response) => response.json())
-      .then((data) => {
-        setCountry(countryCode);
-        setCountryInfo(data);
-        if (countryCode !== "worldwide") {
-          setMapCenter([data.countryInfo.lat, data.countryInfo.long]);
-          setMapZoom(4);
-        } else {
-          setMapCenter([34.80746, -40.4796]);
-          setMapZoom(3);
-        }
-      })
-      .catch((err) => console.log(err));
+    (async function () {
+      const res =
+        countryCode === "worldwide"
+          ? await getCountriesData() // TODO: fix
+          : await getCountryData(countryCode);
+      if (res.error) {
+        setError(res.error);
+        return;
+      }
+      const data = res.response.data;
+      setCountry(countryCode);
+      setCountryInfo(data);
+      if (countryCode !== "worldwide") {
+        setMapCenter([data.countryInfo.lat, data.countryInfo.long]);
+        setMapZoom(4);
+      } else {
+        setMapCenter([34.80746, -40.4796]);
+        setMapZoom(3);
+      }
+    })();
   };
   return (
     <div className="app">

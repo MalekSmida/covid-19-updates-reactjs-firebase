@@ -6,6 +6,7 @@ import numeral from "numeral";
 
 // Local files
 import "./index.scss";
+import { getHistoricalData } from "../../services/Covid";
 
 /**
  * Graph configuration
@@ -83,18 +84,26 @@ const buildChartData = (data, casesType) => {
  */
 function Graph({ casesType, ...props }) {
   const [data, setData] = useState({});
+  const [error, setError] = useState({});
 
   // Fetch historical data of covid-19 in the last 120 day
   useEffect(() => {
-    const fetchData = async () => {
-      await fetch("https://disease.sh/v3/covid-19/historical/all?lastdays=120")
-        .then((response) => response.json())
-        .then((data) => {
-          const chartData = buildChartData(data, casesType);
-          setData(chartData);
-        });
+    let ignore = false;
+
+    (async function () {
+      const res = await getHistoricalData();
+      if (ignore) return;
+      if (res.error) {
+        setError(res.error);
+        return;
+      }
+      const chartData = buildChartData(res.response.data, casesType);
+      setData(chartData);
+    })();
+
+    return () => {
+      ignore = true;
     };
-    fetchData();
   }, [casesType]);
 
   return (
