@@ -1,6 +1,4 @@
-import { default as Graph } from "./Graph";
-import { default as InfoBox } from "./InfoBox";
-import { default as Map } from "./Map";
-import { default as Table } from "./Table";
-
-export { Graph, InfoBox, Map, Table };
+export { default as Graph } from "./Graph";
+export { default as InfoBox } from "./InfoBox";
+export { default as Map } from "./Map";
+export { default as Table } from "./Table";

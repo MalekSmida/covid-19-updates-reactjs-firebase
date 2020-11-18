@@ -9,6 +9,10 @@
     display: none;
   }
 
+  table {
+    min-width: 100%;
+  }
+
   tr {
     display: flex;
     justify-content: space-between;
